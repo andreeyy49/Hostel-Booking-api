@@ -19,7 +19,7 @@ public interface HostelMapper {
     Hostel requestToHostel(UpsertHostelRequest request);
 
     @Mapping(source = "hostelId", target = "id")
-    Hostel requestToHostel(UpsertHostelRequest request, String hostelId);
+    Hostel requestToHostel(UpsertHostelRequest request, Long hostelId);
 
     HostelResponse hostelToResponse(Hostel hostel);
 

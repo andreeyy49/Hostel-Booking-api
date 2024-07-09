@@ -3,14 +3,13 @@ package org.example.hostelbooking.web.entity.hostel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.hostelbooking.entity.Rating;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class HostelResponse {
 
-    private String id;
+    private Long id;
 
     private String name;
 
@@ -22,7 +21,7 @@ public class HostelResponse {
 
     private Float distance;
 
-    private Rating rating;
+    private Integer rating;
 
     private Float ratingCounter;
 

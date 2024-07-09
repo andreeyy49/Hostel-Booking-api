@@ -1,6 +1,7 @@
 package org.example.hostelbooking.web.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.hostelbooking.entity.Hostel;
 import org.example.hostelbooking.mapper.HostelMapper;
 import org.example.hostelbooking.service.HostelService;
 import org.example.hostelbooking.web.entity.hostel.HostelListResponse;
@@ -25,7 +26,7 @@ public class HostelController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<HostelResponse> findById(@PathVariable String id) {
+    public ResponseEntity<HostelResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(hostelMapper.hostelToResponse(hostelService.findById(id)));
     }
 
@@ -36,12 +37,16 @@ public class HostelController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<HostelResponse> update(@PathVariable String id, @RequestBody UpsertHostelRequest request) {
-        return ResponseEntity.ok().body(hostelMapper.hostelToResponse(hostelService.update(hostelMapper.requestToHostel(request), id)));
+    public ResponseEntity<HostelResponse> update(@PathVariable Long id, @RequestBody UpsertHostelRequest request) {
+        Hostel updatedHostel = hostelMapper.requestToHostel(request);
+        updatedHostel.setId(id);
+        updatedHostel = hostelService.update(updatedHostel);
+
+        return ResponseEntity.ok().body(hostelMapper.hostelToResponse(updatedHostel));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         hostelService.delete(id);
 
         return ResponseEntity.noContent().build();

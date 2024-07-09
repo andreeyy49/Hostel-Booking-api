@@ -16,7 +16,7 @@ public class Hostel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     private String name;
 
@@ -28,8 +28,7 @@ public class Hostel {
 
     private Float distance;
 
-    private Rating rating;
+    private Integer rating;
 
     private Float ratingCounter;
-
 }

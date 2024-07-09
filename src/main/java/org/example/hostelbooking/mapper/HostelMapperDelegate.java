@@ -4,9 +4,6 @@ import org.example.hostelbooking.entity.Hostel;
 import org.example.hostelbooking.web.entity.hostel.HostelResponse;
 import org.example.hostelbooking.web.entity.hostel.UpsertHostelRequest;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class HostelMapperDelegate implements HostelMapper {
 
     @Override
@@ -22,7 +19,7 @@ public abstract class HostelMapperDelegate implements HostelMapper {
     }
 
     @Override
-    public Hostel requestToHostel(UpsertHostelRequest request, String hostelId) {
+    public Hostel requestToHostel(UpsertHostelRequest request, Long hostelId) {
         Hostel hostel = requestToHostel(request);
         hostel.setId(hostelId);
 
@@ -45,7 +42,6 @@ public abstract class HostelMapperDelegate implements HostelMapper {
     @Override
     public HostelResponse hostelToResponseWithRating(Hostel hostel) {
         HostelResponse response = hostelToResponse(hostel);
-        response.setRating(hostel.getRating());
         response.setRatingCounter(hostel.getRatingCounter());
 
         return response;

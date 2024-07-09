@@ -20,7 +20,7 @@ public class HostelService {
         return hostelRepository.findAll();
     }
 
-    public Hostel findById(String id) {
+    public Hostel findById(Long id) {
         return hostelRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format(
                 "Hostel with ID: {0} not found", id
         )));
@@ -30,8 +30,8 @@ public class HostelService {
         return hostelRepository.save(hostel);
     }
 
-    public Hostel update(Hostel hostel, String id) {
-        Hostel existHostel = hostelRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
+    public Hostel update(Hostel hostel) {
+        Hostel existHostel = hostelRepository.findById(hostel.getId()).orElseThrow(() -> new EntityNotFoundException(
                 "Hostel not found"
         ));
 
@@ -40,7 +40,7 @@ public class HostelService {
         return hostelRepository.save(hostel);
     }
 
-    public void delete(String id) {
+    public void delete(Long id) {
         hostelRepository.deleteById(id);
     }
 }
