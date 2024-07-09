@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @DecoratedWith(HostelMapperDelegate.class)
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = RoomMapper.class)
 public interface HostelMapper {
 
     Hostel requestToHostel(UpsertHostelRequest request);

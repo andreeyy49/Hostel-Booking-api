@@ -1,12 +1,10 @@
 package org.example.hostelbooking.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -31,4 +29,8 @@ public class Hostel {
     private Integer rating;
 
     private Float ratingCounter;
+
+    @OneToMany(mappedBy = "hostel", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<Room> rooms = new ArrayList<>();
 }

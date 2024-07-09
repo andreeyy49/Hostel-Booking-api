@@ -1,10 +1,25 @@
 package org.example.hostelbooking.mapper;
 
+import lombok.RequiredArgsConstructor;
 import org.example.hostelbooking.entity.Hostel;
+import org.example.hostelbooking.entity.Room;
+import org.example.hostelbooking.service.RoomService;
 import org.example.hostelbooking.web.entity.hostel.HostelResponse;
 import org.example.hostelbooking.web.entity.hostel.UpsertHostelRequest;
+import org.example.hostelbooking.web.entity.room.RoomResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class HostelMapperDelegate implements HostelMapper {
+
+    @Autowired
+    private RoomService roomService;
+
+    @Autowired
+
+    private RoomMapper roomMapper;
 
     @Override
     public Hostel requestToHostel(UpsertHostelRequest request) {
@@ -14,6 +29,16 @@ public abstract class HostelMapperDelegate implements HostelMapper {
         hostel.setCity(request.getCity());
         hostel.setTitle(request.getTitle());
         hostel.setDistance(request.getDistance());
+
+        if (request.getRoomsIds() != null) {
+            List<Room> rooms = new ArrayList<>();
+
+            for (String roomId : request.getRoomsIds()) {
+                rooms.add(roomService.findById(Long.valueOf(roomId)));
+            }
+
+            hostel.setRooms(rooms);
+        }
 
         return hostel;
     }
@@ -35,6 +60,14 @@ public abstract class HostelMapperDelegate implements HostelMapper {
         response.setCity(hostel.getCity());
         response.setTitle(hostel.getTitle());
         response.setDistance(hostel.getDistance());
+
+        List<RoomResponse> rooms = new ArrayList<>();
+        for (Room room : hostel.getRooms()) {
+            rooms.add(roomMapper.roomToResponse(room));
+        }
+
+        response.setRooms(rooms);
+
 
         return response;
     }
