@@ -1,0 +1,6 @@
+package org.example.hostelbooking.entity;
+
+public enum RoleType {
+
+    ROLE_USER, ROLE_ADMIN
+}
