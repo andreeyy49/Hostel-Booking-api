@@ -1,12 +1,12 @@
 package org.example.hostelbooking.mapper;
 
-import lombok.RequiredArgsConstructor;
 import org.example.hostelbooking.entity.Hostel;
 import org.example.hostelbooking.entity.Room;
 import org.example.hostelbooking.service.RoomService;
 import org.example.hostelbooking.web.entity.hostel.HostelResponse;
+import org.example.hostelbooking.web.entity.hostel.HostelResponseWithoutRooms;
 import org.example.hostelbooking.web.entity.hostel.UpsertHostelRequest;
-import org.example.hostelbooking.web.entity.room.RoomResponse;
+import org.example.hostelbooking.web.entity.room.RoomResponseWithoutHostel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -53,7 +53,9 @@ public abstract class HostelMapperDelegate implements HostelMapper {
 
     @Override
     public HostelResponse hostelToResponse(Hostel hostel) {
+
         HostelResponse response = new HostelResponse();
+
         response.setId(hostel.getId());
         response.setName(hostel.getName());
         response.setAddress(hostel.getAddress());
@@ -61,13 +63,30 @@ public abstract class HostelMapperDelegate implements HostelMapper {
         response.setTitle(hostel.getTitle());
         response.setDistance(hostel.getDistance());
 
-        List<RoomResponse> rooms = new ArrayList<>();
-        for (Room room : hostel.getRooms()) {
-            rooms.add(roomMapper.roomToResponse(room));
+        List<RoomResponseWithoutHostel> roomsResponse = new ArrayList<>();
+        List<Room> rooms = hostel.getRooms();
+        if (rooms != null) {
+            for (Room room : rooms) {
+                roomsResponse.add(roomMapper.roomToResponseWithoutHostel(room));
+            }
         }
 
-        response.setRooms(rooms);
+        response.setRooms(roomsResponse);
 
+
+        return response;
+    }
+
+    @Override
+    public HostelResponseWithoutRooms hostelToResponseWithoutRooms(Hostel hostel) {
+        HostelResponseWithoutRooms response = new HostelResponseWithoutRooms();
+
+        response.setId(hostel.getId());
+        response.setName(hostel.getName());
+        response.setAddress(hostel.getAddress());
+        response.setCity(hostel.getCity());
+        response.setTitle(hostel.getTitle());
+        response.setDistance(hostel.getDistance());
 
         return response;
     }
@@ -79,14 +98,4 @@ public abstract class HostelMapperDelegate implements HostelMapper {
 
         return response;
     }
-
-//    @Override
-//    public List<HostelResponse> hostelListToResponseList(List<Hostel> hostels) {
-//        List<HostelResponse>list = new ArrayList<>();
-//        for(Hostel hostel : hostels) {
-//            list.add(hostelToResponseWithRating(hostel));
-//        }
-//
-//        return list;
-//    }
 }

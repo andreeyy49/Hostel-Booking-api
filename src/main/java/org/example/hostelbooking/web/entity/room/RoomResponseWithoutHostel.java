@@ -3,16 +3,13 @@ package org.example.hostelbooking.web.entity.room;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.hostelbooking.web.entity.hostel.HostelResponse;
-import org.example.hostelbooking.web.entity.hostel.HostelResponseWithoutRooms;
 
 import java.time.Instant;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoomResponse {
+public class RoomResponseWithoutHostel {
 
     private Long id;
 
@@ -28,5 +25,4 @@ public class RoomResponse {
 
     private Instant bookingTime;
 
-    private HostelResponseWithoutRooms hostel;
 }

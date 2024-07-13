@@ -32,8 +32,10 @@ public class HostelController {
 
     @PostMapping
     public ResponseEntity<HostelResponse> create(@RequestBody UpsertHostelRequest request) {
+        Hostel hostel = hostelMapper.requestToHostel(request);
+        hostel = hostelService.save(hostel);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(hostelMapper.hostelToResponse(hostelService.save(hostelMapper.requestToHostel(request))));
+                .body(hostelMapper.hostelToResponse(hostel));
     }
 
     @PutMapping("/{id}")

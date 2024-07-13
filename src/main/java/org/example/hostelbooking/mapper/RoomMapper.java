@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import org.example.hostelbooking.entity.Room;
 import org.example.hostelbooking.web.entity.room.RoomListResponse;
 import org.example.hostelbooking.web.entity.room.RoomResponse;
+import org.example.hostelbooking.web.entity.room.RoomResponseWithoutHostel;
 import org.example.hostelbooking.web.entity.room.UpsertRoomRequest;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
@@ -23,6 +24,8 @@ public interface RoomMapper {
     Room requestToRoom(UpsertRoomRequest request, Long roomId);
 
     RoomResponse roomToResponse(Room room);
+
+    RoomResponseWithoutHostel roomToResponseWithoutHostel(Room room);
 
     default RoomListResponse roomListToUserListResponse(List<Room> rooms){
         RoomListResponse response = new RoomListResponse();

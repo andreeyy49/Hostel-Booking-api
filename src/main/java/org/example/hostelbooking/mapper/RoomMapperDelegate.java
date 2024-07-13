@@ -1,15 +1,15 @@
 package org.example.hostelbooking.mapper;
 
-import lombok.RequiredArgsConstructor;
 import org.example.hostelbooking.entity.Room;
 import org.example.hostelbooking.service.HostelService;
 import org.example.hostelbooking.web.entity.room.RoomResponse;
+import org.example.hostelbooking.web.entity.room.RoomResponseWithoutHostel;
 import org.example.hostelbooking.web.entity.room.UpsertRoomRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
 
-public abstract class RoomMapperDelegate implements RoomMapper{
+public abstract class RoomMapperDelegate implements RoomMapper {
 
     @Autowired
     private HostelService hostelService;
@@ -25,7 +25,9 @@ public abstract class RoomMapperDelegate implements RoomMapper{
         room.setPrice(request.getPrice());
         room.setNumber(request.getNumber());
         room.setMaxPeopleSize(request.getMaxPeopleSize());
-        room.setBookingTime(Instant.parse(request.getBookingTime()));
+        if (request.getBookingTime() != null) {
+            room.setBookingTime(Instant.parse(request.getBookingTime()));
+        }
         room.setHostel(hostelService.findById(Long.valueOf(request.getHostelId())));
 
         return room;
@@ -42,6 +44,7 @@ public abstract class RoomMapperDelegate implements RoomMapper{
     @Override
     public RoomResponse roomToResponse(Room room) {
         RoomResponse roomResponse = new RoomResponse();
+        roomResponse.setId(room.getId());
         roomResponse.setName(room.getName());
         roomResponse.setDescription(room.getDescription());
         roomResponse.setPrice(room.getPrice());
@@ -49,7 +52,21 @@ public abstract class RoomMapperDelegate implements RoomMapper{
         roomResponse.setMaxPeopleSize(room.getMaxPeopleSize());
         roomResponse.setBookingTime(room.getBookingTime());
 
-        roomResponse.setHostel(hostelMapper.hostelToResponse(room.getHostel()));
+        roomResponse.setHostel(hostelMapper.hostelToResponseWithoutRooms(room.getHostel()));
+
+        return roomResponse;
+    }
+
+    @Override
+    public RoomResponseWithoutHostel roomToResponseWithoutHostel(Room room) {
+        RoomResponseWithoutHostel roomResponse = new RoomResponseWithoutHostel();
+        roomResponse.setId(room.getId());
+        roomResponse.setName(room.getName());
+        roomResponse.setDescription(room.getDescription());
+        roomResponse.setPrice(room.getPrice());
+        roomResponse.setNumber(room.getNumber());
+        roomResponse.setMaxPeopleSize(room.getMaxPeopleSize());
+        roomResponse.setBookingTime(room.getBookingTime());
 
         return roomResponse;
     }

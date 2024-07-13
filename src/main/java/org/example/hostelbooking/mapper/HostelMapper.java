@@ -3,6 +3,7 @@ package org.example.hostelbooking.mapper;
 import org.example.hostelbooking.entity.Hostel;
 import org.example.hostelbooking.web.entity.hostel.HostelListResponse;
 import org.example.hostelbooking.web.entity.hostel.HostelResponse;
+import org.example.hostelbooking.web.entity.hostel.HostelResponseWithoutRooms;
 import org.example.hostelbooking.web.entity.hostel.UpsertHostelRequest;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
@@ -23,9 +24,9 @@ public interface HostelMapper {
 
     HostelResponse hostelToResponse(Hostel hostel);
 
-    HostelResponse hostelToResponseWithRating(Hostel hostel);
+    HostelResponseWithoutRooms hostelToResponseWithoutRooms(Hostel hostel);
 
-//    List<HostelResponse> hostelListToResponseList(List<Hostel> hostels);
+    HostelResponse hostelToResponseWithRating(Hostel hostel);
 
     default HostelListResponse hostelListToUserListResponse(List<Hostel> hostels){
         HostelListResponse response = new HostelListResponse();
