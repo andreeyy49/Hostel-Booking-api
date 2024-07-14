@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserMapperDelegate implements UserMapper {
+public abstract class UserMapperDelegate implements UserMapper {
 
     @Autowired
     private BookingMapper bookingMapper;
