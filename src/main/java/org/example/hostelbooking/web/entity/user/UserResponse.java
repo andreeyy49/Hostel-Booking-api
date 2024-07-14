@@ -3,6 +3,10 @@ package org.example.hostelbooking.web.entity.user;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.hostelbooking.web.entity.booking.BookingResponseWithoutUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,5 +22,7 @@ public class UserResponse {
     private String email;
 
     private String role;
+
+    private List<BookingResponseWithoutUser> bookings = new ArrayList<>();
 
 }

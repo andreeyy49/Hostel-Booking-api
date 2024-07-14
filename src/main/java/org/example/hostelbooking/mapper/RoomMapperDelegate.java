@@ -1,13 +1,17 @@
 package org.example.hostelbooking.mapper;
 
+import org.example.hostelbooking.entity.Booking;
 import org.example.hostelbooking.entity.Room;
 import org.example.hostelbooking.service.HostelService;
+import org.example.hostelbooking.web.entity.booking.BookingResponseWithoutRoom;
 import org.example.hostelbooking.web.entity.room.RoomResponse;
 import org.example.hostelbooking.web.entity.room.RoomResponseWithoutHostel;
 import org.example.hostelbooking.web.entity.room.UpsertRoomRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class RoomMapperDelegate implements RoomMapper {
 
@@ -16,6 +20,9 @@ public abstract class RoomMapperDelegate implements RoomMapper {
 
     @Autowired
     private HostelMapper hostelMapper;
+
+    @Autowired
+    private BookingMapper bookingMapper;
 
     @Override
     public Room requestToRoom(UpsertRoomRequest request) {
@@ -52,6 +59,17 @@ public abstract class RoomMapperDelegate implements RoomMapper {
         roomResponse.setMaxPeopleSize(room.getMaxPeopleSize());
         roomResponse.setBookingTime(room.getBookingTime());
 
+        List<Booking> bookingList = room.getBookings();
+        List<BookingResponseWithoutRoom> bookingWithoutRoomList = new ArrayList<>();
+
+        if(bookingList != null) {
+            for (Booking booking : bookingList) {
+                bookingWithoutRoomList.add(bookingMapper.bookingToResponseWithoutRoom(booking));
+            }
+
+            roomResponse.setBookings(bookingWithoutRoomList);
+        }
+
         roomResponse.setHostel(hostelMapper.hostelToResponseWithoutRooms(room.getHostel()));
 
         return roomResponse;
@@ -67,6 +85,17 @@ public abstract class RoomMapperDelegate implements RoomMapper {
         roomResponse.setNumber(room.getNumber());
         roomResponse.setMaxPeopleSize(room.getMaxPeopleSize());
         roomResponse.setBookingTime(room.getBookingTime());
+
+        List<Booking> bookingList = room.getBookings();
+        List<BookingResponseWithoutRoom> bookingWithoutRoomList = new ArrayList<>();
+
+        if(bookingList != null) {
+            for (Booking booking : bookingList) {
+                bookingWithoutRoomList.add(bookingMapper.bookingToResponseWithoutRoom(booking));
+            }
+
+            roomResponse.setBookings(bookingWithoutRoomList);
+        }
 
         return roomResponse;
     }

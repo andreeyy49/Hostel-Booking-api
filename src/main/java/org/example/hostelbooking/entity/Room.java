@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -31,4 +33,8 @@ public class Room {
     @JoinColumn(name = "hostel_id")
     @ToString.Exclude
     private Hostel hostel;
+
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<Booking> bookings = new ArrayList<>();
 }

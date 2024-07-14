@@ -18,7 +18,6 @@ public abstract class HostelMapperDelegate implements HostelMapper {
     private RoomService roomService;
 
     @Autowired
-
     private RoomMapper roomMapper;
 
     @Override
@@ -62,7 +61,6 @@ public abstract class HostelMapperDelegate implements HostelMapper {
         response.setCity(hostel.getCity());
         response.setTitle(hostel.getTitle());
         response.setDistance(hostel.getDistance());
-
         List<RoomResponseWithoutHostel> roomsResponse = new ArrayList<>();
         List<Room> rooms = hostel.getRooms();
         if (rooms != null) {

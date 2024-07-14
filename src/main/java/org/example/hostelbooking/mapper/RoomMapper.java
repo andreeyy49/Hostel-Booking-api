@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @DecoratedWith(RoomMapperDelegate.class)
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = BookingMapper.class)
 public interface RoomMapper {
 
     Room requestToRoom(UpsertRoomRequest request);

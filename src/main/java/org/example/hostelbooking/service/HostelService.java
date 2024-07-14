@@ -31,9 +31,7 @@ public class HostelService {
     }
 
     public Hostel update(Hostel hostel) {
-        Hostel existHostel = hostelRepository.findById(hostel.getId()).orElseThrow(() -> new EntityNotFoundException(
-                "Hostel not found"
-        ));
+        Hostel existHostel = findById(hostel.getId());
 
         BeanUtils.copyNotNullProperties(hostel, existHostel);
 

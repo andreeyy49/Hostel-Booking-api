@@ -6,29 +6,29 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Instant;
 
-@Entity(name = "users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@Entity(name = "booking")
+public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
+    private Instant in;
 
-    private String password;
+    private Instant out;
 
-    private String email;
-
-    private String role;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "room_id")
     @ToString.Exclude
-    private List<Booking> bookings = new ArrayList<>();
+    private Room room;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    private User user;
 }
