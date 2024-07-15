@@ -5,6 +5,7 @@ import org.example.hostelbooking.entity.User;
 import org.example.hostelbooking.web.entity.booking.BookingResponseWithoutUser;
 import org.example.hostelbooking.web.entity.user.UpsertUserRequest;
 import org.example.hostelbooking.web.entity.user.UserResponse;
+import org.example.hostelbooking.web.entity.user.UserResponseWithoutBooking;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -52,6 +53,18 @@ public abstract class UserMapperDelegate implements UserMapper {
 
             response.setBookings(bookingsResponse);
         }
+
+        return response;
+    }
+
+    @Override
+    public UserResponseWithoutBooking userToResponseWithoutBooking(User user) {
+        UserResponseWithoutBooking response = new UserResponseWithoutBooking();
+        response.setId(user.getId());
+        response.setUsername(user.getUsername());
+        response.setPassword(user.getPassword());
+        response.setEmail(user.getEmail());
+        response.setRole(user.getRole());
 
         return response;
     }

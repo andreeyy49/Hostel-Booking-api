@@ -18,9 +18,9 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Instant in;
+    private Instant inBooking;
 
-    private Instant out;
+    private Instant outBooking;
 
     @ManyToOne
     @JoinColumn(name = "room_id")

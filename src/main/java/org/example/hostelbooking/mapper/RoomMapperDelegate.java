@@ -5,6 +5,7 @@ import org.example.hostelbooking.entity.Room;
 import org.example.hostelbooking.service.HostelService;
 import org.example.hostelbooking.web.entity.booking.BookingResponseWithoutRoom;
 import org.example.hostelbooking.web.entity.room.RoomResponse;
+import org.example.hostelbooking.web.entity.room.RoomResponseWithoutBooking;
 import org.example.hostelbooking.web.entity.room.RoomResponseWithoutHostel;
 import org.example.hostelbooking.web.entity.room.UpsertRoomRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +97,22 @@ public abstract class RoomMapperDelegate implements RoomMapper {
 
             roomResponse.setBookings(bookingWithoutRoomList);
         }
+
+        return roomResponse;
+    }
+
+    @Override
+    public RoomResponseWithoutBooking roomToResponseWithoutBooking(Room room) {
+        RoomResponseWithoutBooking roomResponse = new RoomResponseWithoutBooking();
+        roomResponse.setId(room.getId());
+        roomResponse.setName(room.getName());
+        roomResponse.setDescription(room.getDescription());
+        roomResponse.setPrice(room.getPrice());
+        roomResponse.setNumber(room.getNumber());
+        roomResponse.setMaxPeopleSize(room.getMaxPeopleSize());
+        roomResponse.setBookingTime(room.getBookingTime());
+
+        roomResponse.setHostel(hostelMapper.hostelToResponseWithoutRooms(room.getHostel()));
 
         return roomResponse;
     }

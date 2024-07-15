@@ -26,8 +26,8 @@ public abstract class BookingMapperDelegate implements BookingMapper {
     @Override
     public Booking requestToBooking(UpsertBookingRequest request) {
         Booking booking = new Booking();
-        booking.setIn(request.getIn());
-        booking.setOut(request.getOut());
+        booking.setInBooking(request.getIn());
+        booking.setOutBooking(request.getOut());
         booking.setUser(userService.findById(request.getUserId()));
         booking.setRoom(roomService.findById(request.getRoomId()));
 
@@ -46,10 +46,10 @@ public abstract class BookingMapperDelegate implements BookingMapper {
     public BookingResponse bookingToResponse(Booking booking) {
         BookingResponse response = new BookingResponse();
         response.setId(booking.getId());
-        response.setIn(booking.getIn());
-        response.setOut(booking.getOut());
-        response.setUser(userMapper.userToResponse(booking.getUser()));
-        response.setRoom(roomMapper.roomToResponseWithoutHostel(booking.getRoom()));
+        response.setIn(booking.getInBooking());
+        response.setOut(booking.getOutBooking());
+        response.setUser(userMapper.userToResponseWithoutBooking(booking.getUser()));
+        response.setRoom(roomMapper.roomToResponseWithoutBooking(booking.getRoom()));
 
         return response;
     }
@@ -58,9 +58,9 @@ public abstract class BookingMapperDelegate implements BookingMapper {
     public BookingResponseWithoutRoom bookingToResponseWithoutRoom(Booking booking) {
         BookingResponseWithoutRoom response = new BookingResponseWithoutRoom();
         response.setId(booking.getId());
-        response.setIn(booking.getIn());
-        response.setOut(booking.getOut());
-        response.setUser(userMapper.userToResponse(booking.getUser()));
+        response.setIn(booking.getInBooking());
+        response.setOut(booking.getOutBooking());
+        response.setUser(userMapper.userToResponseWithoutBooking(booking.getUser()));
 
         return response;
     }
@@ -69,9 +69,9 @@ public abstract class BookingMapperDelegate implements BookingMapper {
     public BookingResponseWithoutUser bookingToResponseWithoutUser(Booking booking) {
         BookingResponseWithoutUser response = new BookingResponseWithoutUser();
         response.setId(booking.getId());
-        response.setIn(booking.getIn());
-        response.setOut(booking.getOut());
-        response.setRoom(roomMapper.roomToResponseWithoutHostel(booking.getRoom()));
+        response.setIn(booking.getInBooking());
+        response.setOut(booking.getOutBooking());
+        response.setRoom(roomMapper.roomToResponseWithoutBooking(booking.getRoom()));
 
         return response;
     }

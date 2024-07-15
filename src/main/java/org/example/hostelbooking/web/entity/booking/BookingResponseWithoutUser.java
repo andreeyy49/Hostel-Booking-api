@@ -3,7 +3,7 @@ package org.example.hostelbooking.web.entity.booking;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.hostelbooking.web.entity.room.RoomResponseWithoutHostel;
+import org.example.hostelbooking.web.entity.room.RoomResponseWithoutBooking;
 
 import java.time.Instant;
 
@@ -18,6 +18,6 @@ public class BookingResponseWithoutUser {
 
     private Instant out;
 
-    private RoomResponseWithoutHostel room;
+    private RoomResponseWithoutBooking room;
 
 }
