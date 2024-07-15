@@ -9,6 +9,7 @@ import org.example.hostelbooking.web.entity.room.RoomResponse;
 import org.example.hostelbooking.web.entity.room.UpsertRoomRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,6 +32,7 @@ public class RoomController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<RoomResponse> create(@RequestBody UpsertRoomRequest request) {
         Room room = roomMapper.requestToRoom(request);
         room = roomService.save(room);
@@ -39,6 +41,7 @@ public class RoomController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<RoomResponse> update(@PathVariable Long id, @RequestBody UpsertRoomRequest request) {
         Room room = roomMapper.requestToRoom(request);
         room.setId(id);
@@ -48,6 +51,7 @@ public class RoomController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         roomService.delete(id);
         return ResponseEntity.noContent().build();

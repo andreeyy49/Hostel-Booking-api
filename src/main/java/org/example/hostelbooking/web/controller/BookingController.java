@@ -9,6 +9,7 @@ import org.example.hostelbooking.web.entity.booking.BookingResponse;
 import org.example.hostelbooking.web.entity.booking.UpsertBookingRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,6 +22,7 @@ public class BookingController {
     private final BookingMapper bookingMapper;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<BookingListResponse> findAll(){
         return ResponseEntity.ok().body(bookingMapper.bookingListToBookingListResponse(bookingService.findAll()));
     }

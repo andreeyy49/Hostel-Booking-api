@@ -17,5 +17,4 @@ public class UserResponseWithoutBooking {
 
     private String email;
 
-    private String role;
 }

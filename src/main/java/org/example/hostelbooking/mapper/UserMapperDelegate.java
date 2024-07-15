@@ -41,7 +41,6 @@ public abstract class UserMapperDelegate implements UserMapper {
         response.setUsername(user.getUsername());
         response.setPassword(user.getPassword());
         response.setEmail(user.getEmail());
-        response.setRole(user.getRole());
 
         List<Booking> bookings = user.getBookings();
         if(bookings != null) {
@@ -64,7 +63,6 @@ public abstract class UserMapperDelegate implements UserMapper {
         response.setUsername(user.getUsername());
         response.setPassword(user.getPassword());
         response.setEmail(user.getEmail());
-        response.setRole(user.getRole());
 
         return response;
     }

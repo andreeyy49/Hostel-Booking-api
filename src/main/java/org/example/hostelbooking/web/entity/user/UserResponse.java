@@ -21,8 +21,6 @@ public class UserResponse {
 
     private String email;
 
-    private String role;
-
     private List<BookingResponseWithoutUser> bookings = new ArrayList<>();
 
 }

@@ -1,6 +1,7 @@
 package org.example.hostelbooking.web.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.hostelbooking.entity.Role;
 import org.example.hostelbooking.entity.RoleType;
 import org.example.hostelbooking.entity.User;
 import org.example.hostelbooking.mapper.UserMapper;
@@ -31,12 +32,11 @@ public class UserController {
         return ResponseEntity.ok().body(userMapper.userToResponse(userService.findById(id)));
     }
 
-    @PostMapping
+    @PostMapping("/account")
     public ResponseEntity<UserResponse> create(@RequestBody UpsertUserRequest request,
-                                               @RequestParam(name = "roleType") String roleType) {
+                                               @RequestParam(name = "roleType") RoleType roleType) {
         User user = userMapper.requestToUser(request);
-        user.setRole(roleType);
-        user = userService.save(user);
+        user = userService.save(user, Role.from(roleType));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.userToResponse(user));
     }
