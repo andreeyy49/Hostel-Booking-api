@@ -25,7 +25,7 @@ public class HostelResponse {
 
     private Float distance;
 
-    private Integer rating;
+    private Float rating;
 
     private Float ratingCounter;
 

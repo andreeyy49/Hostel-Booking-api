@@ -93,6 +93,7 @@ public abstract class HostelMapperDelegate implements HostelMapper {
     public HostelResponse hostelToResponseWithRating(Hostel hostel) {
         HostelResponse response = hostelToResponse(hostel);
         response.setRatingCounter(hostel.getRatingCounter());
+        response.setRating(hostel.getRating());
 
         return response;
     }

@@ -2,6 +2,7 @@ package org.example.hostelbooking.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldNameConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "hostels")
+@FieldNameConstants
+@Builder
 public class Hostel {
 
     @Id
@@ -26,7 +29,7 @@ public class Hostel {
 
     private Float distance;
 
-    private Integer rating;
+    private Float rating;
 
     private Float ratingCounter;
 

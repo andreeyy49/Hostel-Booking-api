@@ -28,7 +28,7 @@ public interface HostelMapper {
 
     HostelResponse hostelToResponseWithRating(Hostel hostel);
 
-    default HostelListResponse hostelListToUserListResponse(List<Hostel> hostels){
+    default HostelListResponse hostelListToHostelListResponse(List<Hostel> hostels){
         HostelListResponse response = new HostelListResponse();
 
         response.setHostels(hostels.stream()

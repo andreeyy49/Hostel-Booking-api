@@ -1,16 +1,17 @@
 package org.example.hostelbooking.web.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.hostelbooking.entity.Hostel;
 import org.example.hostelbooking.mapper.HostelMapper;
 import org.example.hostelbooking.service.HostelService;
-import org.example.hostelbooking.web.entity.hostel.HostelListResponse;
-import org.example.hostelbooking.web.entity.hostel.HostelResponse;
-import org.example.hostelbooking.web.entity.hostel.UpsertHostelRequest;
+import org.example.hostelbooking.web.entity.hostel.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +24,21 @@ public class HostelController {
 
     @GetMapping
     public ResponseEntity<HostelListResponse> findAll() {
-        return ResponseEntity.ok().body(hostelMapper.hostelListToUserListResponse(hostelService.findAll()));
+        return ResponseEntity.ok().body(hostelMapper.hostelListToHostelListResponse(hostelService.findAll()));
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<HostelPaginationResponse> filterBy(@RequestBody @Valid HostelFilter filter) {
+
+        List<Hostel> hostels = hostelService.filterBy(filter);
+
+        HostelListResponse listResponse = hostelMapper.hostelListToHostelListResponse(hostels);
+
+        HostelPaginationResponse response = new HostelPaginationResponse();
+        response.setHostelList(listResponse);
+        response.setSize(hostels.size());
+
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/{id}")
@@ -48,6 +63,12 @@ public class HostelController {
         updatedHostel = hostelService.update(updatedHostel);
 
         return ResponseEntity.ok().body(hostelMapper.hostelToResponse(updatedHostel));
+    }
+
+    @PutMapping("/rating/{id}")
+    public ResponseEntity<HostelResponse> updateRating(@PathVariable Long id,
+                                                       @RequestBody @Valid UpsertHostelRatingRequest request) {
+        return ResponseEntity.ok().body(hostelMapper.hostelToResponseWithRating(hostelService.updateRating(id, request.getNewMark())));
     }
 
     @DeleteMapping("/{id}")
