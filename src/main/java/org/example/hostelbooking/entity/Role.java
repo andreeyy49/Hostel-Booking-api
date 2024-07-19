@@ -6,7 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @Data
-@Entity(name = "roles")
+@Entity
+@Table(name = "roles")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Role {

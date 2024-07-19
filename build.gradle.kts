@@ -30,9 +30,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4")
     implementation("org.mapstruct:mapstruct:1.5.3.Final")
+    implementation("org.flywaydb:flyway-core:10.11.1")
 
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly("org.flywaydb:flyway-database-postgresql:10.11.1")
     annotationProcessor("org.projectlombok:lombok")
     annotationProcessor("org.mapstruct:mapstruct-processor:1.5.3.Final")
 

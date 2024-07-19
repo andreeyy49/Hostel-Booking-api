@@ -11,7 +11,8 @@ import java.time.Instant;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "booking")
+@Entity
+@Table(name = "bookings")
 public class Booking {
 
     @Id

@@ -2,10 +2,8 @@ spring:
   main:
     allow-circular-references: true
   jpa:
-    generate-ddl: true
-
-#    hibernate:
-#      ddl-auto: validate
+    hibernate:
+      ddl-auto: validate
 
   datasource:
     url: jdbc:postgresql://localhost:5432/hostel_booking_db
@@ -13,5 +11,11 @@ spring:
     password: postgres
     hikari:
       schema: hostel_booking_schema
-      connection-init-sql: CREATE SCHEMA IF NOT EXISTS hostel_booking_schema
       connection-timeout: 10000
+
+  flyway:
+    user: postgres
+    password: postgres
+    schemas: hostel_booking_schema
+    url: jdbc:postgresql://localhost:5432/hostel_booking_db
+    locations: db/migration

@@ -10,7 +10,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "hostels")
+@Entity
+@Table(name = "hostels")
 @FieldNameConstants
 @Builder
 public class Hostel {
