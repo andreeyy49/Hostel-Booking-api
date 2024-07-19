@@ -3,6 +3,10 @@ spring:
     allow-circular-references: true
   jpa:
     generate-ddl: true
+
+#    hibernate:
+#      ddl-auto: validate
+
   datasource:
     url: jdbc:postgresql://localhost:5432/hostel_booking_db
     username: postgres

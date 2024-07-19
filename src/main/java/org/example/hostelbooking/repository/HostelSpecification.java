@@ -1,7 +1,7 @@
 package org.example.hostelbooking.repository;
 
 import org.example.hostelbooking.entity.Hostel;
-import org.example.hostelbooking.web.entity.hostel.HostelFilter;
+import org.example.hostelbooking.web.dto.hostel.HostelFilter;
 import org.springframework.data.jpa.domain.Specification;
 
 public interface HostelSpecification {

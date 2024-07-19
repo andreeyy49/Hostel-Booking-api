@@ -1,9 +1,7 @@
 package org.example.hostelbooking.mapper;
 
-import lombok.NoArgsConstructor;
 import org.example.hostelbooking.entity.Room;
-import org.example.hostelbooking.web.entity.room.*;
-import org.mapstruct.DecoratedWith;
+import org.example.hostelbooking.web.dto.room.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -11,7 +9,6 @@ import org.mapstruct.ReportingPolicy;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@DecoratedWith(RoomMapperDelegate.class)
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = BookingMapper.class)
 public interface RoomMapper {
 

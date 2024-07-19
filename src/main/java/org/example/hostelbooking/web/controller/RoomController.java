@@ -4,11 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.example.hostelbooking.entity.Room;
 import org.example.hostelbooking.mapper.RoomMapper;
 import org.example.hostelbooking.service.RoomService;
-import org.example.hostelbooking.web.entity.room.RoomListResponse;
-import org.example.hostelbooking.web.entity.room.RoomResponse;
-import org.example.hostelbooking.web.entity.room.UpsertRoomRequest;
+import org.example.hostelbooking.web.dto.room.RoomListResponse;
+import org.example.hostelbooking.web.dto.room.RoomResponse;
+import org.example.hostelbooking.web.dto.room.UpsertRoomRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,38 +21,38 @@ public class RoomController {
     private final RoomMapper roomMapper;
 
     @GetMapping
-    public ResponseEntity<RoomListResponse> findAll() {
-        return ResponseEntity.ok().body(roomMapper.roomListToUserListResponse(roomService.findAll()));
+    public RoomListResponse findAll() {
+        return roomMapper.roomListToUserListResponse(roomService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RoomResponse> findById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(roomMapper.roomToResponse(roomService.findById(id)));
+    public RoomResponse findById(@PathVariable Long id) {
+        return roomMapper.roomToResponse(roomService.findById(id));
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public ResponseEntity<RoomResponse> create(@RequestBody UpsertRoomRequest request) {
+    public RoomResponse create(@RequestBody UpsertRoomRequest request) {
         Room room = roomMapper.requestToRoom(request);
         room = roomService.save(room);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(roomMapper.roomToResponse(room));
+        return roomMapper.roomToResponse(room);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public ResponseEntity<RoomResponse> update(@PathVariable Long id, @RequestBody UpsertRoomRequest request) {
+    public RoomResponse update(@PathVariable Long id, @RequestBody UpsertRoomRequest request) {
         Room room = roomMapper.requestToRoom(request);
         room.setId(id);
         room = roomService.update(room);
 
-        return ResponseEntity.ok().body(roomMapper.roomToResponse(room));
+        return roomMapper.roomToResponse(room);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         roomService.delete(id);
-        return ResponseEntity.noContent().build();
     }
 }

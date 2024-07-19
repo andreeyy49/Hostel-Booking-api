@@ -1,4 +1,4 @@
-package org.example.hostelbooking.web.entity.hostel;
+package org.example.hostelbooking.web.dto.hostel;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

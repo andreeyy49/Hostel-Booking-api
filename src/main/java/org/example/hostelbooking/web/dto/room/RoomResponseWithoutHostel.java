@@ -1,16 +1,18 @@
-package org.example.hostelbooking.web.entity.room;
+package org.example.hostelbooking.web.dto.room;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.hostelbooking.web.entity.hostel.HostelResponseWithoutRooms;
+import org.example.hostelbooking.web.dto.booking.BookingResponseWithoutRoom;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoomResponseWithoutBooking {
+public class RoomResponseWithoutHostel {
 
     private Long id;
 
@@ -26,5 +28,5 @@ public class RoomResponseWithoutBooking {
 
     private Instant bookingTime;
 
-    private HostelResponseWithoutRooms hostel;
+    private List<BookingResponseWithoutRoom> bookings = new ArrayList<>();
 }

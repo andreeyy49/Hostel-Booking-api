@@ -1,9 +1,9 @@
-package org.example.hostelbooking.web.entity.user;
+package org.example.hostelbooking.web.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.hostelbooking.web.entity.booking.BookingResponseWithoutUser;
+import org.example.hostelbooking.web.dto.booking.BookingResponseWithoutUser;
 
 import java.util.ArrayList;
 import java.util.List;

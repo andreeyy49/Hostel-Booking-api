@@ -1,11 +1,10 @@
 package org.example.hostelbooking.mapper;
 
 import org.example.hostelbooking.entity.Hostel;
-import org.example.hostelbooking.web.entity.hostel.HostelListResponse;
-import org.example.hostelbooking.web.entity.hostel.HostelResponse;
-import org.example.hostelbooking.web.entity.hostel.HostelResponseWithoutRooms;
-import org.example.hostelbooking.web.entity.hostel.UpsertHostelRequest;
-import org.mapstruct.DecoratedWith;
+import org.example.hostelbooking.web.dto.hostel.HostelListResponse;
+import org.example.hostelbooking.web.dto.hostel.HostelResponse;
+import org.example.hostelbooking.web.dto.hostel.HostelResponseWithoutRooms;
+import org.example.hostelbooking.web.dto.hostel.UpsertHostelRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -13,7 +12,6 @@ import org.mapstruct.ReportingPolicy;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@DecoratedWith(HostelMapperDelegate.class)
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = RoomMapper.class)
 public interface HostelMapper {
 

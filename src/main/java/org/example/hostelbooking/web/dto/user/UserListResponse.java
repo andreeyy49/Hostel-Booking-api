@@ -1,4 +1,4 @@
-package org.example.hostelbooking.web.entity.booking;
+package org.example.hostelbooking.web.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,8 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookingListResponse {
+public class UserListResponse {
 
-    private List<BookingResponse> bookings = new ArrayList<>();
-
+    private List<UserResponse> users = new ArrayList<>();
 }

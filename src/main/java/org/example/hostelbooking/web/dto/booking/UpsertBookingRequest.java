@@ -1,4 +1,4 @@
-package org.example.hostelbooking.web.entity.booking;
+package org.example.hostelbooking.web.dto.booking;
 
 import lombok.*;
 

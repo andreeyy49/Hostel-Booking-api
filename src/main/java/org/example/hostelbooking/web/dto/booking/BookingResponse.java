@@ -1,10 +1,10 @@
-package org.example.hostelbooking.web.entity.booking;
+package org.example.hostelbooking.web.dto.booking;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.hostelbooking.web.entity.room.RoomResponseWithoutBooking;
-import org.example.hostelbooking.web.entity.user.UserResponseWithoutBooking;
+import org.example.hostelbooking.web.dto.room.RoomResponseWithoutBooking;
+import org.example.hostelbooking.web.dto.user.UserResponseWithoutBooking;
 
 import java.time.Instant;
 

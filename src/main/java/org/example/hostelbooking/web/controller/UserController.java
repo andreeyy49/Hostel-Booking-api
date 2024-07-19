@@ -6,11 +6,10 @@ import org.example.hostelbooking.entity.RoleType;
 import org.example.hostelbooking.entity.User;
 import org.example.hostelbooking.mapper.UserMapper;
 import org.example.hostelbooking.service.UserService;
-import org.example.hostelbooking.web.entity.user.UpsertUserRequest;
-import org.example.hostelbooking.web.entity.user.UserListResponse;
-import org.example.hostelbooking.web.entity.user.UserResponse;
+import org.example.hostelbooking.web.dto.user.UpsertUserRequest;
+import org.example.hostelbooking.web.dto.user.UserListResponse;
+import org.example.hostelbooking.web.dto.user.UserResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,37 +22,37 @@ public class UserController {
     private final UserMapper userMapper;
 
     @GetMapping
-    public ResponseEntity<UserListResponse> findAll() {
-        return ResponseEntity.ok().body(userMapper.userListToUserListResponse(userService.findAll()));
+    public UserListResponse findAll() {
+        return userMapper.userListToUserListResponse(userService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> findById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(userMapper.userToResponse(userService.findById(id)));
+    public UserResponse findById(@PathVariable Long id) {
+        return userMapper.userToResponse(userService.findById(id));
     }
 
     @PostMapping("/account")
-    public ResponseEntity<UserResponse> create(@RequestBody UpsertUserRequest request,
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserResponse create(@RequestBody UpsertUserRequest request,
                                                @RequestParam(name = "roleType") RoleType roleType) {
         User user = userMapper.requestToUser(request);
         user = userService.save(user, Role.from(roleType));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.userToResponse(user));
+        return userMapper.userToResponse(user);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> update(@PathVariable Long id, @RequestBody UpsertUserRequest request) {
+    public UserResponse update(@PathVariable Long id, @RequestBody UpsertUserRequest request) {
         User user = userMapper.requestToUser(request);
         user.setId(id);
         user = userService.update(user);
 
-        return ResponseEntity.ok().body(userMapper.userToResponse(user));
+        return userMapper.userToResponse(user);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
         userService.delete(id);
-
-        return ResponseEntity.noContent().build();
     }
 }

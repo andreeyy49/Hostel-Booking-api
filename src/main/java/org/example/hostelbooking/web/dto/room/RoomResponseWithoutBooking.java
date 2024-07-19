@@ -1,16 +1,18 @@
-package org.example.hostelbooking.web.entity.room;
+package org.example.hostelbooking.web.dto.room;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.hostelbooking.web.dto.hostel.HostelResponseWithoutRooms;
 
-import java.util.Date;
+import java.time.Instant;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpsertRoomRequest {
+public class RoomResponseWithoutBooking {
+
+    private Long id;
 
     private String name;
 
@@ -22,8 +24,7 @@ public class UpsertRoomRequest {
 
     private Integer maxPeopleSize;
 
-    private String hostelId;
+    private Instant bookingTime;
 
-    private String bookingTime;
-
+    private HostelResponseWithoutRooms hostel;
 }

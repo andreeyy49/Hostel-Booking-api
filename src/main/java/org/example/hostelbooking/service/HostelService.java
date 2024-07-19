@@ -6,7 +6,7 @@ import org.example.hostelbooking.entity.Hostel;
 import org.example.hostelbooking.repository.HostelRepository;
 import org.example.hostelbooking.repository.HostelSpecification;
 import org.example.hostelbooking.utils.BeanUtils;
-import org.example.hostelbooking.web.entity.hostel.HostelFilter;
+import org.example.hostelbooking.web.dto.hostel.HostelFilter;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 

@@ -1,16 +1,15 @@
-package org.example.hostelbooking.web.entity.hostel;
+package org.example.hostelbooking.web.dto.hostel;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class UpsertHostelRequest {
+@NoArgsConstructor
+public class HostelResponseWithoutRooms {
+
+    private Long id;
 
     private String name;
 
@@ -22,5 +21,8 @@ public class UpsertHostelRequest {
 
     private Float distance;
 
-    private List<String> roomsIds = new ArrayList<>();
+    private Float rating;
+
+    private Float ratingCounter;
+
 }

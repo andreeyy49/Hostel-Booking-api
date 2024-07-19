@@ -1,4 +1,4 @@
-package org.example.hostelbooking.web.entity.hostel;
+package org.example.hostelbooking.web.dto.hostel;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

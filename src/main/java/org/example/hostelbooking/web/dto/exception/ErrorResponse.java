@@ -1,4 +1,4 @@
-package org.example.hostelbooking.web.entity.exception;
+package org.example.hostelbooking.web.dto.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
