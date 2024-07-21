@@ -14,9 +14,9 @@ public class BookingResponseWithoutUser {
 
     private Long id;
 
-    private Instant in;
+    private Instant inBooking;
 
-    private Instant out;
+    private Instant outBooking;
 
     private RoomResponseWithoutBooking room;
 

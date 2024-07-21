@@ -2,6 +2,7 @@ plugins {
     java
     id("org.springframework.boot") version "3.3.1"
     id("io.spring.dependency-management") version "1.1.5"
+    id ("org.flywaydb.flyway") version "7.10.0"
 }
 
 group = "org.example"
@@ -41,6 +42,13 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+flyway {
+    url = "jdbc:postgresql://localhost:5432/hostel_booking_db"
+    user = "postgres"
+    password = "postgres"
+    locations = arrayOf("classpath:db/migration")
 }
 
 tasks.withType<Test> {

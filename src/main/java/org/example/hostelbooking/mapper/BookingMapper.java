@@ -1,29 +1,40 @@
 package org.example.hostelbooking.mapper;
 
 import org.example.hostelbooking.entity.Booking;
+import org.example.hostelbooking.entity.Room;
+import org.example.hostelbooking.entity.User;
+import org.example.hostelbooking.service.RoomService;
+import org.example.hostelbooking.service.UserService;
 import org.example.hostelbooking.web.dto.booking.*;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = {RoomMapper.class, UserMapper.class})
-public interface BookingMapper {
+public abstract class BookingMapper {
 
-    Booking requestToBooking(UpsertBookingRequest request);
+    @Autowired
+    protected RoomService roomService;
+
+    @Autowired
+    protected UserService userService;
+
+    @Mapping(source = "userId", target = "user", qualifiedByName = "mapUser")
+    @Mapping(source = "roomId", target = "room", qualifiedByName = "mapRoom")
+    public abstract Booking requestToBooking(UpsertBookingRequest request);
 
     @Mapping(source = "bookingId", target = "id")
-    Booking requestToBooking(UpsertBookingRequest request, Long bookingId);
+    public abstract Booking requestToBooking(UpsertBookingRequest request, Long bookingId);
 
-    BookingResponse bookingToResponse(Booking booking);
+    public abstract BookingResponse bookingToResponse(Booking booking);
 
-    BookingResponseWithoutRoom bookingToResponseWithoutRoom(Booking booking);
+    public abstract BookingResponseWithoutRoom bookingToResponseWithoutRoom(Booking booking);
 
-    BookingResponseWithoutUser bookingToResponseWithoutUser(Booking booking);
+    public abstract BookingResponseWithoutUser bookingToResponseWithoutUser(Booking booking);
 
-    default BookingListResponse bookingListToBookingListResponse(List<Booking> bookings) {
+    public BookingListResponse bookingListToBookingListResponse(List<Booking> bookings) {
         BookingListResponse bookingListResponse = new BookingListResponse();
 
         bookingListResponse.setBookings(bookings.stream()
@@ -33,4 +44,13 @@ public interface BookingMapper {
         return bookingListResponse;
     }
 
+    @Named(value = "mapRoom")
+    Room mapRoom(Long roomId) {
+        return roomService.findById(roomId);
+    }
+
+    @Named(value = "mapUser")
+    User mapUser(Long userId){
+        return userService.findById(userId);
+    }
 }

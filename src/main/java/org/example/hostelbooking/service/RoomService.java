@@ -4,7 +4,10 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.example.hostelbooking.entity.Room;
 import org.example.hostelbooking.repository.RoomRepository;
+import org.example.hostelbooking.repository.RoomSpecification;
 import org.example.hostelbooking.utils.BeanUtils;
+import org.example.hostelbooking.web.dto.room.RoomFilter;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -18,6 +21,14 @@ public class RoomService {
 
     public List<Room> findAll() {
         return roomRepository.findAll();
+    }
+
+    public List<Room> filterBy(RoomFilter filter) {
+        return roomRepository.findAll(RoomSpecification.withFilter(filter),
+                PageRequest.of(
+                        filter.getPageNumber(),
+                        filter.getPageSize()
+                )).getContent();
     }
 
     public Room findById(Long id) {

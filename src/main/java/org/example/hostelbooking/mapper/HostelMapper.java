@@ -13,20 +13,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = RoomMapper.class)
-public interface HostelMapper {
+public abstract class HostelMapper {
 
-    Hostel requestToHostel(UpsertHostelRequest request);
+    public abstract Hostel requestToHostel(UpsertHostelRequest request);
 
     @Mapping(source = "hostelId", target = "id")
-    Hostel requestToHostel(UpsertHostelRequest request, Long hostelId);
+    public abstract Hostel requestToHostel(UpsertHostelRequest request, Long hostelId);
 
-    HostelResponse hostelToResponse(Hostel hostel);
+    public abstract HostelResponse hostelToResponse(Hostel hostel);
 
-    HostelResponseWithoutRooms hostelToResponseWithoutRooms(Hostel hostel);
+    public abstract HostelResponseWithoutRooms hostelToResponseWithoutRooms(Hostel hostel);
 
-    HostelResponse hostelToResponseWithRating(Hostel hostel);
+    public abstract HostelResponse hostelToResponseWithRating(Hostel hostel);
 
-    default HostelListResponse hostelListToHostelListResponse(List<Hostel> hostels){
+    public HostelListResponse hostelListToHostelListResponse(List<Hostel> hostels){
         HostelListResponse response = new HostelListResponse();
 
         response.setHostels(hostels.stream()

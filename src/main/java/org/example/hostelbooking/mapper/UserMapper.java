@@ -13,18 +13,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = BookingMapper.class)
-public interface UserMapper {
+public abstract class UserMapper {
 
-    User requestToUser(UpsertUserRequest request);
+    public abstract User requestToUser(UpsertUserRequest request);
 
     @Mapping(target = "id", source = "userId")
-    User requestToUser(UpsertUserRequest request, Long userId);
+    public abstract User requestToUser(UpsertUserRequest request, Long userId);
 
-    UserResponse userToResponse(User user);
+    public abstract UserResponse userToResponse(User user);
 
-    UserResponseWithoutBooking userToResponseWithoutBooking(User user);
+    public abstract UserResponseWithoutBooking userToResponseWithoutBooking(User user);
 
-    default UserListResponse userListToUserListResponse(List<User> users){
+    public UserListResponse userListToUserListResponse(List<User> users){
         UserListResponse response = new UserListResponse();
 
         response.setUsers(users.stream()

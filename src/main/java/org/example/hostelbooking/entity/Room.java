@@ -2,6 +2,7 @@ package org.example.hostelbooking.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldNameConstants;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "rooms")
+@FieldNameConstants
+@Builder
 public class Room {
 
     @Id
