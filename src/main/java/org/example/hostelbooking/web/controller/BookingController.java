@@ -2,12 +2,15 @@ package org.example.hostelbooking.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.hostelbooking.entity.Booking;
+import org.example.hostelbooking.entity.BookingData;
 import org.example.hostelbooking.mapper.BookingMapper;
 import org.example.hostelbooking.service.BookingService;
 import org.example.hostelbooking.web.dto.booking.BookingListResponse;
 import org.example.hostelbooking.web.dto.booking.BookingResponse;
 import org.example.hostelbooking.web.dto.booking.UpsertBookingRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +18,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/booking")
 @RequiredArgsConstructor
 public class BookingController {
+
+    @Value("${app.kafka.bookingMessageTopic}")
+    private String topicName;
+
+    private final KafkaTemplate<String, BookingData> kafkaTemplate;
 
     private final BookingService bookingService;
 
@@ -36,6 +44,13 @@ public class BookingController {
     public BookingResponse create(@RequestBody UpsertBookingRequest upsertBookingRequest){
         Booking booking = bookingMapper.requestToBooking(upsertBookingRequest);
         booking = bookingService.save(booking);
+
+        BookingData bookingData = new BookingData();
+        bookingData.setUserId(booking.getUser().getId());
+        bookingData.setInBooking(booking.getInBooking());
+        bookingData.setOutBooking(booking.getOutBooking());
+
+        kafkaTemplate.send(topicName, bookingData);
 
         return bookingMapper.bookingToResponse(booking);
     }

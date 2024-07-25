@@ -29,9 +29,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb:3.2.5")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4")
     implementation("org.mapstruct:mapstruct:1.5.3.Final")
     implementation("org.flywaydb:flyway-core:10.11.1")
+    implementation("org.springframework.kafka:spring-kafka")
 
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("org.postgresql:postgresql")
@@ -42,13 +44,6 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
-
-flyway {
-    url = "jdbc:postgresql://localhost:5432/hostel_booking_db"
-    user = "postgres"
-    password = "postgres"
-    locations = arrayOf("classpath:db/migration")
 }
 
 tasks.withType<Test> {

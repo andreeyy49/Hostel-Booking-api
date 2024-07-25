@@ -1,9 +1,14 @@
 spring:
   main:
     allow-circular-references: true
+
   jpa:
     hibernate:
       ddl-auto: update
+
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/infodatabase?authSource=admin
 
   datasource:
     url: jdbc:postgresql://localhost:5432/hostel_booking_db
@@ -13,5 +18,11 @@ spring:
       schema: hostel_booking_schema
       connection-timeout: 10000
 
-  flyway:
-    locations: classpath:db/migration
+  kafka:
+    bootstrap-servers: localhost:9092
+
+app:
+  kafka:
+    bookingMessageTopic: "booking-topic"
+    registrationMessageTopic: "registration-topic"
+    kafkaMessageGroupId: "kafka-message-group-id"
